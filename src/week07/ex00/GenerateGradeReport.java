@@ -10,23 +10,44 @@ public class GenerateGradeReport {
 
     private School school = School.getInstance();
     private StringBuffer report = new StringBuffer();
-    private static final String LINE = "------------------------\n";
-    private static final String HEADER = "수강생 학점\n";
+    private static final String LINE = "-------------------------------\n";
+    private static final String HEADER = " 수강생 학점\n";
     private static final String TITLE = "이름 | 학번 | 중점과목 | 점수\n";
 
 
-    private void makeHeader(int subjectId) {
-        report.append(LINE);
-        report.append(school.getSubjects().get(subjectId).getSubjectName());
-        report.append(HEADER);
-        report.append(TITLE);
-    }
+//    private void makeHeader(int subjectId, Subject subject) {
+//        report.append(LINE);
+//        report.append(school.getSubjects().get(subjectId).getSubjectName());
+//        report.append(HEADER);
+//        report.append(TITLE);
+//    }
+private void makeHeader(Subject subject) {
+    report.append(LINE);
+    report.append(subject.getSubjectName());
+    report.append(HEADER);
+    report.append(TITLE);
+}
 
-    private void makeBody(int subjectId) {
-        ArrayList<Student> students = school.getSubjects().get(subjectId).getStudents();
+//    private void makeBody(int subjectId, Subject subject) {
+//        ArrayList<Student> students = school.getSubjects().get(subjectId).getStudents();
+//        for (Student student: students) {
+//            report.append(student.getStudentName() + " | " + student.getStudentId() + " | " + student.getMajor().getSubjectName()
+//                    + "\t| " + student.getScores().get(subjectId).getPoint() + ":" + gradeCalc(subjectId, student) + " |\n");
+//            report.append(LINE);
+//        }
+//    }
+    private void makeBody(Subject subject) {
+        ArrayList<Student> students = subject.getStudents();
         for (Student student: students) {
-            report.append(student.getStudentName() + " | " + student.getStudentId() + " | " + student.getMajor().getSubjectName()
-                    + "\t| " + student.getScores().get(subjectId).getPoint() + ":" + gradeCalc(subjectId, student) + " |\n");
+            report.append(student.getStudentName());
+            report.append(" | ");
+            report.append(student.getStudentId());
+            report.append(" | ");
+            report.append(student.getMajor().getSubjectName());
+            report.append(" | ");
+
+            report.append(student.getScores().get(subject.getSubjectId()).getPoint() + ":");
+            report.append(gradeCalc(subject.getSubjectId(), student) + "\n");
             report.append(LINE);
         }
     }
@@ -67,8 +88,9 @@ public class GenerateGradeReport {
         while(it.hasNext()) {
             // next를 사용해 값을 취득
             Map.Entry<Integer, Subject> subject = it.next();
-            makeHeader(subject.getValue().getSubjectId());
-            makeBody(subject.getValue().getSubjectId());
+            makeHeader(subject.getValue());
+            makeBody(subject.getValue());
+            report.append("\n");
         }
 
 
