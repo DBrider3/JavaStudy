@@ -7,7 +7,7 @@ public class Student {
     private int studentId;
     private String studentName;
     private Subject major;
-    private HashMap<Integer, Score> scores;
+    private HashMap<Integer, Score> scores; // 초기화 순서 땜에 new를 여기서 할 수도 있으니 다시 생각해 보기
 
     public Student(int studentId, String studentName, Subject major) {
         this.studentId = studentId;

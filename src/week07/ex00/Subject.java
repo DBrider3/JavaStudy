@@ -9,12 +9,6 @@ public class Subject {
     private int gradeType;
     private ArrayList<Student> students;
 
-//    public Subject(int subjectId, String subjectName, int gradeType) {
-//        this.subjectId = subjectId;
-//        this.subjectName = subjectName;
-//        this.gradeType = Define.AB;
-//    }
-
     public Subject(String subjectName, int subjectId) {
         this.subjectName = subjectName;
         this.subjectId = subjectId;

@@ -1,6 +1,5 @@
 package week07.ex00;
 
-import javax.print.attribute.standard.PrinterMessageFromOperator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,28 +13,14 @@ public class GenerateGradeReport {
     private static final String HEADER = " 수강생 학점\n";
     private static final String TITLE = "이름 | 학번 | 중점과목 | 점수\n";
 
+    private void makeHeader(Subject subject) {
+        report.append(LINE);
+        report.append(subject.getSubjectName());
+        report.append(HEADER);
+        report.append(TITLE);
+    }
 
-//    private void makeHeader(int subjectId, Subject subject) {
-//        report.append(LINE);
-//        report.append(school.getSubjects().get(subjectId).getSubjectName());
-//        report.append(HEADER);
-//        report.append(TITLE);
-//    }
-private void makeHeader(Subject subject) {
-    report.append(LINE);
-    report.append(subject.getSubjectName());
-    report.append(HEADER);
-    report.append(TITLE);
-}
 
-//    private void makeBody(int subjectId, Subject subject) {
-//        ArrayList<Student> students = school.getSubjects().get(subjectId).getStudents();
-//        for (Student student: students) {
-//            report.append(student.getStudentName() + " | " + student.getStudentId() + " | " + student.getMajor().getSubjectName()
-//                    + "\t| " + student.getScores().get(subjectId).getPoint() + ":" + gradeCalc(subjectId, student) + " |\n");
-//            report.append(LINE);
-//        }
-//    }
     private void makeBody(Subject subject) {
         ArrayList<Student> students = subject.getStudents();
         for (Student student: students) {
@@ -53,6 +38,7 @@ private void makeHeader(Subject subject) {
     }
 
     private String gradeCalc(int subjectId, Student student) {
+        // score 를 바로 찾는다.
         Score score = student.getScores().get(subjectId);
         String result;
         if (subjectId == Define.DANCE) {
@@ -60,26 +46,20 @@ private void makeHeader(Subject subject) {
             result = eval.getGrade(score.getPoint());
         }
         else {
+            GradeEval eval;
             if (student.getMajor().getSubjectId() == score.getSubject().getSubjectId()) {
-                MajorEval eval = new MajorEval();
-                result = eval.getGrade(score.getPoint());
+                eval = new MajorEval();
             }
             else {
-                BasicEval eval = new BasicEval();
-                result = eval.getGrade(score.getPoint());
+                eval = new BasicEval();
             }
+            result = eval.getGrade(score.getPoint());
         }
         return result;
     }
 
     public String getReport() {
         HashMap subjects = school.getSubjects();
-//        Iterator<Integer, Subject> it = subjects.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Subject subject = it.next();
-//            makeHeader(subject.getSubjectId());
-//            makeBody(subject.getSubjectId());
-//        }
 
         // Iterator선언
         Iterator<Map.Entry<Integer, Subject>> it = subjects.entrySet().iterator();
@@ -92,9 +72,6 @@ private void makeHeader(Subject subject) {
             makeBody(subject.getValue());
             report.append("\n");
         }
-
-
-
         return report.toString();
     }
 

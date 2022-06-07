@@ -8,7 +8,6 @@ public class School {
     private static School instance = new School();
 
     private HashMap<Integer, Subject> subjects;
-//    private ArrayList<Subject> subjects;
     private ArrayList<Student> students;
 
     private School() {
