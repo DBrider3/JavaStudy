@@ -9,10 +9,16 @@ public class Subject {
     private int gradeType;
     private ArrayList<Student> students;
 
-    public Subject(int subjectId, String subjectName, int gradeType) {
-        this.subjectId = subjectId;
+//    public Subject(int subjectId, String subjectName, int gradeType) {
+//        this.subjectId = subjectId;
+//        this.subjectName = subjectName;
+//        this.gradeType = Define.AB;
+//    }
+
+    public Subject(String subjectName, int subjectId) {
         this.subjectName = subjectName;
-        this.gradeType = gradeType;
+        this.subjectId = subjectId;
+        students = new ArrayList<>();
     }
 
     public void register(Student student) {
@@ -41,5 +47,9 @@ public class Subject {
 
     public void setGradeType(int gradeType) {
         this.gradeType = gradeType;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
     }
 }

@@ -15,7 +15,7 @@ public class MajorEval implements GradeEval {
         else if (point >= 70 && point <= 79) {
             return "C";
         }
-        else if (point >= 55 && point <= 69) {
+        else if (point >= 60 && point <= 69) {
             return "D";
         }
         else {
